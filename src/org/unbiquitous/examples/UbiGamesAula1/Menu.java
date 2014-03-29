@@ -45,7 +45,7 @@ public class Menu extends GameScene {
   @Override
   protected void render() {
     sprite.render(screen, 0, 0, Corner.TOP_LEFT);
-    text.render(screen, 400, 300, Corner.CENTER, angle);
+    text.render(screen, 400, 300, null, angle);
   }
 
   @Override
