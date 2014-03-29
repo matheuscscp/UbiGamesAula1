@@ -97,7 +97,7 @@ class Eatles extends GameObject {
 
   @Override
   protected void render(GameRenderers renderers) {
-    avatar.render(screen, position.x, position.y, null, angle, 3f, 3f, 0.75f);
+    avatar.render(screen, position.x, position.y, null, 0.75f, angle, 3f, 3f);
   }
 
   @Override
