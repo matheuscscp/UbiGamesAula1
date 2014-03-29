@@ -10,6 +10,7 @@ import org.unbiquitous.uImpala.engine.core.GameObject;
 import org.unbiquitous.uImpala.engine.core.GameRenderers;
 import org.unbiquitous.uImpala.engine.io.Screen;
 import org.unbiquitous.uImpala.engine.time.DeltaTime;
+import org.unbiquitous.uImpala.util.Corner;
 
 public class Level extends ContainerScene {
   public Level() {
@@ -35,7 +36,7 @@ class Fundo extends GameObject {
 
   @Override
   protected void render(GameRenderers renderers) {
-    background.render(screen, -300, -300);
+    background.render(screen, -300, -300, Corner.TOP_LEFT);
   }
 
   @Override
@@ -96,7 +97,7 @@ class Eatles extends GameObject {
 
   @Override
   protected void render(GameRenderers renderers) {
-    avatar.render(screen, position.x, position.y, angle, 3f, 3f, 0.75f);
+    avatar.render(screen, position.x, position.y, Corner.CENTER, angle, 3f, 3f, 0.75f);
   }
 
   @Override

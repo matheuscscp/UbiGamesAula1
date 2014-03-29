@@ -10,6 +10,7 @@ import org.unbiquitous.uImpala.engine.io.MouseSource;
 import org.unbiquitous.uImpala.engine.io.Screen;
 import org.unbiquitous.uImpala.engine.io.ScreenManager;
 import org.unbiquitous.uImpala.engine.time.DeltaTime;
+import org.unbiquitous.uImpala.util.Corner;
 import org.unbiquitous.uImpala.util.math.Rectangle;
 import org.unbiquitous.uImpala.util.observer.Event;
 import org.unbiquitous.uImpala.util.observer.Observation;
@@ -43,8 +44,8 @@ public class Menu extends GameScene {
 
   @Override
   protected void render() {
-    sprite.render(screen, 0, 0);
-    text.render(screen, 400, 300, angle);
+    sprite.render(screen, 0, 0, Corner.TOP_LEFT);
+    text.render(screen, 400, 300, Corner.CENTER, angle);
   }
 
   @Override
