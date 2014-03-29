@@ -18,6 +18,39 @@ public class Level extends ContainerScene {
   }
 }
 
+class Fundo extends GameObject {
+  private Sprite background;
+  private Screen screen;
+  
+  public Fundo(AssetManager assets) {
+    background = new Sprite(assets, "img/background.png");
+    screen = GameComponents.get(Screen.class);
+  }
+
+  @Override
+  protected void update() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  protected void render(GameRenderers renderers) {
+    background.render(screen, -300, -300);
+  }
+
+  @Override
+  protected void wakeup(Object... args) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  protected void destroy() {
+    // TODO Auto-generated method stub
+    
+  }
+}
+
 class Point {
   float x, y;
 
@@ -64,39 +97,6 @@ class Eatles extends GameObject {
   @Override
   protected void render(GameRenderers renderers) {
     avatar.render(screen, position.x, position.y, angle, 3f, 3f, 0.75f);
-  }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
-}
-
-class Fundo extends GameObject {
-  private Sprite background;
-  private Screen screen;
-  
-  public Fundo(AssetManager assets) {
-    background = new Sprite(assets, "img/background.png");
-    screen = GameComponents.get(Screen.class);
-  }
-
-  @Override
-  protected void update() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void render(GameRenderers renderers) {
-    background.render(-300, -300, screen);
   }
 
   @Override

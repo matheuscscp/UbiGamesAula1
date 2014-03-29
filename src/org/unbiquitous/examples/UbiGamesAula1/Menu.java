@@ -9,6 +9,8 @@ import org.unbiquitous.uImpala.engine.io.MouseEvent;
 import org.unbiquitous.uImpala.engine.io.MouseSource;
 import org.unbiquitous.uImpala.engine.io.Screen;
 import org.unbiquitous.uImpala.engine.io.ScreenManager;
+import org.unbiquitous.uImpala.engine.time.DeltaTime;
+import org.unbiquitous.uImpala.util.math.Rectangle;
 import org.unbiquitous.uImpala.util.observer.Event;
 import org.unbiquitous.uImpala.util.observer.Observation;
 import org.unbiquitous.uImpala.util.observer.Subject;
@@ -19,6 +21,7 @@ public class Menu extends GameScene {
   private Screen screen;
   private Text text;
   private MouseSource screenMouse;
+  private float angle;
   
   public Menu() {
     screen = GameComponents.get(ScreenManager.class).create();
@@ -30,17 +33,18 @@ public class Menu extends GameScene {
     screenMouse = screen.getMouse();
     screenMouse.connect(MouseSource.EVENT_BUTTON_DOWN, new Observation(this, "buttonDown"));
     text.options(null, 60f, null, null);
+    angle = 0f;
   }
   
   @Override
   protected void update() {
-    
+    angle += 180f*GameComponents.get(DeltaTime.class).getDT();
   }
 
   @Override
   protected void render() {
-    sprite.render(0, 0, screen);
-    text.render(screen, 400, 300);
+    sprite.render(screen, 0, 0);
+    text.render(screen, 400, 300, angle);
   }
 
   @Override
@@ -57,11 +61,7 @@ public class Menu extends GameScene {
   
   protected void buttonDown(Event event, Subject subject) {
     MouseEvent e = (MouseEvent)event;
-    int x = e.getX(), y = e.getY();
-    if (x >= 400 - text.getWidth()/2 &&
-        x < 400 + text.getWidth()/2 &&
-        y >= 300 - text.getHeight()/2 &&
-        y < 300 + text.getHeight()/2) {
+    if (e.isInside(new Rectangle(400, 300, text.getWidth(), text.getHeight(), angle))) {
       GameComponents.get(Game.class).change(new Level());
     }
   }
