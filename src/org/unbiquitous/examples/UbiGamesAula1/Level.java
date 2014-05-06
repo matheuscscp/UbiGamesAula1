@@ -30,7 +30,8 @@ class Fundo extends GameObject {
 
   @Override
   protected void update() {
-    // TODO Auto-generated method stub
+    if (screen.isCloseRequested())
+      GameComponents.get(Game.class).quit();
     
   }
 
@@ -80,9 +81,6 @@ class Eatles extends GameObject {
   }
   
   protected void update() {
-    if (screen.isCloseRequested())
-      GameComponents.get(Game.class).quit();
-    
     Point target = new Point(screen.getMouse().getX(), screen.getMouse().getY());
     
     Point speed = new Point(target.x - position.x, target.y - position.y);
