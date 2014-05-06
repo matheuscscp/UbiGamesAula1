@@ -2,10 +2,10 @@ package org.unbiquitous.examples.UbiGamesAula1;
 
 import java.util.Arrays;
 
-import org.unbiquitous.uImpala.engine.core.Game;
 import org.unbiquitous.uImpala.engine.core.GameSettings;
 import org.unbiquitous.uImpala.engine.io.MouseManager;
 import org.unbiquitous.uImpala.engine.io.ScreenManager;
+import org.unbiquitous.uImpala.jse.impl.core.Game;
 
 public class Main {
   @SuppressWarnings({ "serial", "unchecked" })
@@ -16,8 +16,8 @@ public class Main {
         MouseManager.class
       ));
       put("output_managers", Arrays.asList(
-          ScreenManager.class
-        ));
+        ScreenManager.class
+      ));
     }});
   }
 }

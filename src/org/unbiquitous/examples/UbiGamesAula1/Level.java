@@ -24,7 +24,7 @@ class Fundo extends GameObject {
   private Screen screen;
   
   public Fundo(AssetManager assets) {
-    background = new Sprite(assets, "img/background.png");
+    background = assets.newSprite("img/background.png");
     screen = GameComponents.get(Screen.class);
   }
 
@@ -72,7 +72,7 @@ class Eatles extends GameObject {
   private float angle;
   
   public Eatles(AssetManager assets) {
-    avatar = new Animation(assets, "img/eatles_blink.png", 4, 12);
+    avatar = assets.newAnimation("img/eatles_blink.png", 4, 12);
     screen = GameComponents.get(Screen.class);
     position = new Point(400, 300);
     dt = GameComponents.get(DeltaTime.class);
