@@ -3,7 +3,7 @@ package org.unbiquitous.examples.UbiGamesAula1;
 import org.unbiquitous.uImpala.engine.asset.Animation;
 import org.unbiquitous.uImpala.engine.asset.AssetManager;
 import org.unbiquitous.uImpala.engine.asset.Sprite;
-import org.unbiquitous.uImpala.engine.core.ContainerScene;
+import org.unbiquitous.uImpala.engine.core.GameObjectTreeScene;
 import org.unbiquitous.uImpala.engine.core.Game;
 import org.unbiquitous.uImpala.engine.core.GameComponents;
 import org.unbiquitous.uImpala.engine.core.GameObject;
@@ -12,7 +12,7 @@ import org.unbiquitous.uImpala.engine.io.Screen;
 import org.unbiquitous.uImpala.engine.time.DeltaTime;
 import org.unbiquitous.uImpala.util.Corner;
 
-public class Level extends ContainerScene {
+public class Level extends GameObjectTreeScene {
   public Level() {
     add(new Fundo(assets));
     add(new Eatles(assets));
