@@ -39,6 +39,8 @@ public class Menu extends GameScene {
   @Override
   protected void update() {
     angle += 180f*GameComponents.get(DeltaTime.class).getDT();
+    if (screen.isCloseRequested())
+      GameComponents.get(Game.class).quit();
   }
 
   @Override
