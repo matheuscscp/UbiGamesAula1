@@ -57,14 +57,13 @@ public class Menu extends GameScene {
 
   @Override
   protected void destroy() {
-    // TODO Auto-generated method stub
-    
+    screenMouse.disconnect(MouseSource.EVENT_BUTTON_DOWN, new Observation(this, "buttonDown"));
   }
   
   protected void buttonDown(Event event, Subject subject) {
     MouseEvent e = (MouseEvent)event;
     if (e.isInside(new Rectangle(400, 300, text.getWidth(), text.getHeight(), angle))) {
-      GameComponents.get(Game.class).change(new Level());
+      GameComponents.get(Game.class).change(new ExampleScene());
     }
   }
 }
