@@ -39,15 +39,13 @@ class Fundo extends GameObject {
     background = assets.newSprite("img/background.png");
     screen = GameComponents.get(Screen.class);
   }
-
-  @Override
+  
   protected void update() {
-    if (screen.isCloseRequested())
+    if (screen.isCloseRequested()) {
       GameComponents.get(Game.class).quit();
-    
+    }
   }
-
-  @Override
+  
   protected void render(GameRenderers renderers) {
     renderers.put(0, new Runnable() {
       public void run() {
@@ -55,33 +53,18 @@ class Fundo extends GameObject {
       }
     });
   }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
 }
 
 class Point {
   float x, y;
-
   public Point(float x, float y) {
     super();
     this.x = x;
     this.y = y;
   }
-  
 }
 
 class Eatles extends GameObject {
-
   private Animation avatar;
   private Screen screen;
   private Point position;
@@ -108,8 +91,7 @@ class Eatles extends GameObject {
     
     angle += 50f*dt.getDT();
   }
-
-  @Override
+  
   protected void render(GameRenderers renderers) {
     renderers.put(10, new Runnable() {
       public void run() {
@@ -117,167 +99,85 @@ class Eatles extends GameObject {
       }
     });
   }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
 }
 
 class Space2D extends GameObjectComponent {
-
-  protected void init() {
-    object.write("x", 400.0f);
-    object.write("y", 300.0f);
-  }
-  
-  @Override
-  protected void update() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void handle(String field, Object value) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
   protected String family() {
-    // TODO Auto-generated method stub
     return "spatial";
   }
   
+  protected void init() {
+    object.write("pos", new Point(400, 300));
+  }
+  
+  protected void update() {
+    
+  }
 }
 
 class Renderer extends GameObjectComponent {
-
   Animation anim;
-
+  
   public Renderer(AssetManager assets) {
     anim = assets.newAnimation("img/eatles_blink.png", 4, 12);
   }
   
-  protected void init() {
-    
-  }
-  
-  @Override
-  protected void update() {
-    render(5, new Runnable() {
-      public void run() {
-        anim.render(GameComponents.get(Screen.class), object.read("x", 0.0f), object.read("y", 0.0f));
-      }
-    });
-  }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void handle(String field, Object value) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
   protected String family() {
-    // TODO Auto-generated method stub
     return "renderer";
   }
   
   protected List<String> depends() {
     return Arrays.asList("spatial");
   }
+  
+  protected void init() {
+    
+  }
+  
+  protected void update() {
+    final Point pos = object.read("pos", new Point(0, 0));
+    render(5, new Runnable() {
+      public void run() {
+        anim.render(GameComponents.get(Screen.class), pos.x, pos.y);
+      }
+    });
+  }
 }
 
 class CharacterController extends GameObjectComponent {
-
   KeyboardSource keyboard;
   
   public CharacterController() {
     keyboard = GameComponents.get(Screen.class).getKeyboard();
   }
-
+  
+  protected String family() {
+    return "controller";
+  }
+  
+  protected List<String> depends() {
+    return Arrays.asList("spatial");
+  }
+  
   protected void init() {
     
   }
   
-  @Override
   protected void update() {
-    float x = object.read("x", 0.0f);
-    float y = object.read("y", 0.0f);
+    final Point pos = object.read("pos", new Point(0, 0));
     float speed = 150.0f;
     if (keyboard.getKey(Keyboard.KEY_W)) {
-      y -= speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.y -= speed*GameComponents.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_S)) {
-      y += speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.y += speed*GameComponents.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_A)) {
-      x -= speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.x -= speed*GameComponents.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_D)) {
-      x += speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.x += speed*GameComponents.get(DeltaTime.class).getDT();
     }
-    object.write("x", x);
-    object.write("y", y);
-  }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void destroy() {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected void handle(String field, Object value) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  protected String family() {
-    // TODO Auto-generated method stub
-    return "controller";
-  }
-
-  protected List<String> depends() {
-    return Arrays.asList("spatial");
+    object.write("pos", pos);
   }
 }

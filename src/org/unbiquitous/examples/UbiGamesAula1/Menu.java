@@ -17,7 +17,6 @@ import org.unbiquitous.uImpala.util.observer.Observation;
 import org.unbiquitous.uImpala.util.observer.Subject;
 
 public class Menu extends GameScene {
-
   private Sprite sprite;
   private Screen screen;
   private Text text;
@@ -36,26 +35,18 @@ public class Menu extends GameScene {
     angle = 0f;
   }
   
-  @Override
   protected void update() {
     angle += 180f*GameComponents.get(DeltaTime.class).getDT();
-    if (screen.isCloseRequested())
+    if (screen.isCloseRequested()) {
       GameComponents.get(Game.class).quit();
+    }
   }
 
-  @Override
   public void render() {
     sprite.render(screen, 0, 0, Corner.TOP_LEFT);
     text.render(screen, 400, 300, null, 1.0f, angle);
   }
-
-  @Override
-  protected void wakeup(Object... args) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
+  
   protected void destroy() {
     screenMouse.disconnect(MouseSource.EVENT_BUTTON_DOWN, new Observation(this, "buttonDown"));
   }
