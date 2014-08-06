@@ -1,6 +1,7 @@
 package org.unbiquitous.examples.UbiGamesAula1;
 
-import java.util.logging.Level;
+import java.util.Arrays;
+import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.unbiquitous.uImpala.engine.asset.Animation;
@@ -17,14 +18,16 @@ import org.unbiquitous.uImpala.engine.io.KeyboardSource;
 import org.unbiquitous.uImpala.engine.io.Screen;
 import org.unbiquitous.uImpala.engine.time.DeltaTime;
 import org.unbiquitous.uImpala.util.Corner;
-import org.unbiquitous.uos.core.UOSLogging;
 
 public class ExampleScene extends GameObjectTreeScene {
   public ExampleScene() {
-    UOSLogging.setLevel(Level.ALL);
-    add(new Fundo(assets));
-    add(new Eatles(assets));
-    add(new ComponentObject(assets));
+    add(new Fundo(getAssets()));
+    add(new Eatles(getAssets()));
+    add(new ComponentGameObject(
+        new Space2D(),
+        new Renderer(getAssets()),
+        new CharacterController()
+    ));
   }
 }
 
@@ -128,18 +131,9 @@ class Eatles extends GameObject {
   }
 }
 
-class ComponentObject extends ComponentGameObject {
-  public ComponentObject(AssetManager assets) {
-    addComponent(new Space2D(this));
-    addComponent(new Renderer(this, assets));
-    addComponent(new CharacterController(this));
-  }
-}
-
 class Space2D extends GameObjectComponent {
 
-  public Space2D(ComponentGameObject obj) {
-    super(obj);
+  protected void init() {
     object.write("x", 400.0f);
     object.write("y", 300.0f);
   }
@@ -167,6 +161,12 @@ class Space2D extends GameObjectComponent {
     // TODO Auto-generated method stub
     
   }
+
+  @Override
+  protected String family() {
+    // TODO Auto-generated method stub
+    return "spatial";
+  }
   
 }
 
@@ -174,9 +174,12 @@ class Renderer extends GameObjectComponent {
 
   Animation anim;
 
-  public Renderer(ComponentGameObject obj, AssetManager assets) {
-    super(obj);
+  public Renderer(AssetManager assets) {
     anim = assets.newAnimation("img/eatles_blink.png", 4, 12);
+  }
+  
+  protected void init() {
+    
   }
   
   @Override
@@ -205,18 +208,30 @@ class Renderer extends GameObjectComponent {
     // TODO Auto-generated method stub
     
   }
+
+  @Override
+  protected String family() {
+    // TODO Auto-generated method stub
+    return "renderer";
+  }
   
+  protected List<String> depends() {
+    return Arrays.asList("spatial");
+  }
 }
 
 class CharacterController extends GameObjectComponent {
 
   KeyboardSource keyboard;
   
-  public CharacterController(ComponentGameObject object) {
-    super(object);
+  public CharacterController() {
     keyboard = GameComponents.get(Screen.class).getKeyboard();
   }
 
+  protected void init() {
+    
+  }
+  
   @Override
   protected void update() {
     float x = object.read("x", 0.0f);
@@ -255,5 +270,14 @@ class CharacterController extends GameObjectComponent {
     // TODO Auto-generated method stub
     
   }
-  
+
+  @Override
+  protected String family() {
+    // TODO Auto-generated method stub
+    return "controller";
+  }
+
+  protected List<String> depends() {
+    return Arrays.asList("spatial");
+  }
 }
