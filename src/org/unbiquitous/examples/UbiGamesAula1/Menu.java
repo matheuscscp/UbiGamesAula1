@@ -3,7 +3,7 @@ package org.unbiquitous.examples.UbiGamesAula1;
 import org.unbiquitous.uImpala.engine.asset.Sprite;
 import org.unbiquitous.uImpala.engine.asset.Text;
 import org.unbiquitous.uImpala.engine.core.Game;
-import org.unbiquitous.uImpala.engine.core.GameComponents;
+import org.unbiquitous.uImpala.engine.core.GameSingletons;
 import org.unbiquitous.uImpala.engine.core.GameScene;
 import org.unbiquitous.uImpala.engine.io.MouseEvent;
 import org.unbiquitous.uImpala.engine.io.MouseSource;
@@ -24,9 +24,9 @@ public class Menu extends GameScene {
   private float angle;
   
   public Menu() {
-    screen = GameComponents.get(ScreenManager.class).create();
+    screen = GameSingletons.get(ScreenManager.class).create();
     screen.open("UbiGamesAula1", 800, 600, false, null);
-    GameComponents.put(Screen.class, screen);
+    GameSingletons.put(Screen.class, screen);
     sprite = assets().newSprite("img/background.png");
     text = assets().newText("ttf/default.ttf", "Jogar");
     screenMouse = screen.getMouse();
@@ -36,9 +36,9 @@ public class Menu extends GameScene {
   }
   
   protected void update() {
-    angle += 180f*GameComponents.get(DeltaTime.class).getDT();
+    angle += 180f*GameSingletons.get(DeltaTime.class).getDT();
     if (screen.isCloseRequested()) {
-      GameComponents.get(Game.class).quit();
+      GameSingletons.get(Game.class).quit();
     }
   }
 
@@ -54,7 +54,7 @@ public class Menu extends GameScene {
   protected void buttonDown(Event event, Subject subject) {
     MouseEvent e = (MouseEvent)event;
     if (e.isInside(new Rectangle(400, 300, text.getWidth(), text.getHeight(), angle))) {
-      GameComponents.get(Game.class).change(new ExampleScene());
+      GameSingletons.get(Game.class).change(new ExampleScene());
     }
   }
 }

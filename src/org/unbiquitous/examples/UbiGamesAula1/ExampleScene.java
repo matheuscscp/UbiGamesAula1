@@ -9,7 +9,7 @@ import org.unbiquitous.uImpala.engine.asset.AssetManager;
 import org.unbiquitous.uImpala.engine.asset.Sprite;
 import org.unbiquitous.uImpala.engine.core.ComponentGameObject;
 import org.unbiquitous.uImpala.engine.core.Game;
-import org.unbiquitous.uImpala.engine.core.GameComponents;
+import org.unbiquitous.uImpala.engine.core.GameSingletons;
 import org.unbiquitous.uImpala.engine.core.GameObject;
 import org.unbiquitous.uImpala.engine.core.GameObjectComponent;
 import org.unbiquitous.uImpala.engine.core.GameObjectTreeScene;
@@ -37,12 +37,12 @@ class Fundo extends GameObject {
   
   public Fundo(AssetManager assets) {
     background = assets.newSprite("img/background.png");
-    screen = GameComponents.get(Screen.class);
+    screen = GameSingletons.get(Screen.class);
   }
   
   protected void update() {
     if (screen.isCloseRequested()) {
-      GameComponents.get(Game.class).quit();
+      GameSingletons.get(Game.class).quit();
     }
   }
   
@@ -73,9 +73,9 @@ class Eatles extends GameObject {
   
   public Eatles(AssetManager assets) {
     avatar = assets.newAnimation("img/eatles_blink.png", 4, 12);
-    screen = GameComponents.get(Screen.class);
+    screen = GameSingletons.get(Screen.class);
     position = new Point(400, 300);
-    dt = GameComponents.get(DeltaTime.class);
+    dt = GameSingletons.get(DeltaTime.class);
     angle = 0f;
   }
   
@@ -138,7 +138,7 @@ class Renderer extends GameObjectComponent {
     final Point pos = object.read("pos", new Point(0, 0));
     render(5, new Runnable() {
       public void run() {
-        anim.render(GameComponents.get(Screen.class), pos.x, pos.y);
+        anim.render(GameSingletons.get(Screen.class), pos.x, pos.y);
       }
     });
   }
@@ -148,7 +148,7 @@ class CharacterController extends GameObjectComponent {
   KeyboardSource keyboard;
   
   public CharacterController() {
-    keyboard = GameComponents.get(Screen.class).getKeyboard();
+    keyboard = GameSingletons.get(Screen.class).getKeyboard();
   }
   
   protected String family() {
@@ -167,16 +167,16 @@ class CharacterController extends GameObjectComponent {
     final Point pos = object.read("pos", new Point(0, 0));
     float speed = 150.0f;
     if (keyboard.getKey(Keyboard.KEY_W)) {
-      pos.y -= speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.y -= speed*GameSingletons.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_S)) {
-      pos.y += speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.y += speed*GameSingletons.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_A)) {
-      pos.x -= speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.x -= speed*GameSingletons.get(DeltaTime.class).getDT();
     }
     if (keyboard.getKey(Keyboard.KEY_D)) {
-      pos.x += speed*GameComponents.get(DeltaTime.class).getDT();
+      pos.x += speed*GameSingletons.get(DeltaTime.class).getDT();
     }
     object.write("pos", pos);
   }
