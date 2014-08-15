@@ -27,8 +27,8 @@ public class Menu extends GameScene {
     screen = GameComponents.get(ScreenManager.class).create();
     screen.open("UbiGamesAula1", 800, 600, false, null);
     GameComponents.put(Screen.class, screen);
-    sprite = getAssets().newSprite("img/background.png");
-    text = getAssets().newText("ttf/default.ttf", "Jogar");
+    sprite = assets().newSprite("img/background.png");
+    text = assets().newText("ttf/default.ttf", "Jogar");
     screenMouse = screen.getMouse();
     screenMouse.connect(MouseSource.EVENT_BUTTON_DOWN, new Observation(this, "buttonDown"));
     text.options(null, 60f, null);

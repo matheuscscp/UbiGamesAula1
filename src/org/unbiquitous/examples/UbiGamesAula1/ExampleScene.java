@@ -21,11 +21,11 @@ import org.unbiquitous.uImpala.util.Corner;
 
 public class ExampleScene extends GameObjectTreeScene {
   public ExampleScene() {
-    add(new Fundo(getAssets()));
-    add(new Eatles(getAssets()));
+    add(new Fundo(assets()));
+    add(new Eatles(assets()));
     add(new ComponentGameObject(
         new Space2D(),
-        new Renderer(getAssets()),
+        new Renderer(assets()),
         new CharacterController()
     ));
   }
